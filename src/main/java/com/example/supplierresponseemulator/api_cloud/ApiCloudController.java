@@ -16,7 +16,7 @@ public class ApiCloudController {
 
     private final ApiCloudService apiCloudService;
 
-    //Два успешных запроса в Постмен для получения не нудевых данных:
+    //Два успешных запроса в Постмен для получения не нужных данных:
     //http://localhost:8080/api/fssp.php?type=physical&lastname=Иванов&firstname=Иван&secondname=Иванович&birthdate=31.03.1995&region=-1&token=53ba1b7a55abbа14aa97eff3a5220792
     //http://localhost:8080/api/fssp.php?type=physical&lastname=Петров&firstname=Петр&birthdate=15.07.1980&region=-1&token=53ba1b7a55abbа14aa97eff3a5220792
     @GetMapping("/fssp.php")
