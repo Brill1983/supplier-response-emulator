@@ -1,4 +1,4 @@
-package com.example.supplierresponseemulator.api_cloud.dto.fssp;
+package com.example.supplierresponseemulator.api_cloud.dto;
 
 
 import lombok.AllArgsConstructor;

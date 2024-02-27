@@ -1,5 +1,6 @@
 package com.example.supplierresponseemulator.api_cloud.dto.fssp;
 
+import com.example.supplierresponseemulator.api_cloud.dto.Inquiry;
 import lombok.*;
 
 import java.util.List;

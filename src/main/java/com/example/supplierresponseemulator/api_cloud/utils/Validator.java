@@ -13,10 +13,7 @@ public class Validator {
 
     public boolean validFsspReqParams(String type, String lastname, String firstname, String birthdate, String region,
                                       String token, int searchAll, int onlyActual) {
-        if (!token.equals(API_CLOUD_USER_TOKEN)) {
-            throw new BadParameterException("Передан пустой или не существующий токен API");
-        }
-
+        validToken(token);
         if (!type.equals("physical") || StringUtils.isBlank(lastname) || StringUtils.isBlank(firstname)) {
             return false;
         }
@@ -33,5 +30,11 @@ public class Validator {
             return false;
         }
         return onlyActual == 0 || searchAll == 1;
+    }
+
+    public void validToken(String token) {
+        if (!token.equals(API_CLOUD_USER_TOKEN)) {
+            throw new BadParameterException("Передан пустой или не существующий токен API");
+        }
     }
 }

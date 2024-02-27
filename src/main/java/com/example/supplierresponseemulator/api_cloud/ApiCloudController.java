@@ -1,7 +1,11 @@
 package com.example.supplierresponseemulator.api_cloud;
 
 import com.example.supplierresponseemulator.api_cloud.dto.fssp.FsspResponse;
+import com.example.supplierresponseemulator.api_cloud.dto.nalog.InnResponse;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api")
 @RequiredArgsConstructor
+@Validated
 public class ApiCloudController {
 
     // константа - токен - 53ba1b7a55abbа14aa97eff3a5220792
@@ -32,6 +37,17 @@ public class ApiCloudController {
                                               @RequestParam(defaultValue = "0") int onlyActual) { // TODO на реальном API - какой параметр выводит актуальные,а какой историю.
 
         return apiCloudService.fsspEnfPrecessing(type, lastname, firstname, secondname, birthdate, region, token, searchAll, onlyActual);
+    }
+
+    @GetMapping("/nalog.php")
+    public InnResponse getInn(@RequestParam String type,
+                              @RequestParam String firstname,
+                              @RequestParam String lastname,
+                              @RequestParam(required = false) String secondname,
+                              @RequestParam String birthdate,
+                              @RequestParam @Size(min = 10, max = 10) String serianomer,
+                              @RequestParam String token) {
+        return null;
     }
 
 }
