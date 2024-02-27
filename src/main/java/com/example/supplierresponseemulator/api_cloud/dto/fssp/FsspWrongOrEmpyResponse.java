@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class FsspWrongOrEmpyResponse extends FsspResponse{
+public class FsspWrongOrEmpyResponse extends FsspResponse {
     private int status;
     private int count;
     private String message;

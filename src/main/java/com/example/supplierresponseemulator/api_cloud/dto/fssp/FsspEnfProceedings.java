@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class FsspEnfProceedings extends FsspResponse{
+public class FsspEnfProceedings extends FsspResponse {
 
     private int status; // Статус запрос
     private String countAll; // Всего записей
