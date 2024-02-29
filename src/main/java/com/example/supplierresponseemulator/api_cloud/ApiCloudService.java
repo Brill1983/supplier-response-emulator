@@ -5,11 +5,15 @@ import com.example.supplierresponseemulator.api_cloud.dto.TimeMaxConErrorRespons
 import com.example.supplierresponseemulator.api_cloud.dto.fssp.FsspEnfProceedings;
 import com.example.supplierresponseemulator.api_cloud.dto.fssp.FsspWrongOrEmpyResponse;
 import com.example.supplierresponseemulator.api_cloud.dto.fssp.Record;
+import com.example.supplierresponseemulator.api_cloud.dto.gibdd.GibddNegativeResponse;
+import com.example.supplierresponseemulator.api_cloud.dto.gibdd.GibddPositiveResponse;
 import com.example.supplierresponseemulator.api_cloud.dto.mvd.MvdResponse;
 import com.example.supplierresponseemulator.api_cloud.dto.nalog.NegativeResponse;
 import com.example.supplierresponseemulator.api_cloud.dto.nalog.PersonForInnSearch;
 import com.example.supplierresponseemulator.api_cloud.dto.nalog.PositiveResponse;
 import com.example.supplierresponseemulator.api_cloud.dto.nalog.SelfEmplResponse;
+import com.example.supplierresponseemulator.api_cloud.dto.rosfinmon.RosFinMonNegativeResponse;
+import com.example.supplierresponseemulator.api_cloud.dto.rosfinmon.RosFinMonPositiveResponse;
 import com.example.supplierresponseemulator.api_cloud.exceptions.SupplierException;
 import com.example.supplierresponseemulator.api_cloud.utils.Validator;
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +28,7 @@ public class ApiCloudService {
     private final Validator validator = new Validator();
 
     public Response fsspEnfPrecessing(String type, String lastname, String firstname, String secondname,
-                                          String birthdate, String region, String token, int searchAll, int onlyActual) {
+                                      String birthdate, String region, String token, int searchAll, int onlyActual) {
         if (!validator.validFsspReqParams(type, lastname, firstname, birthdate, region, token, searchAll, onlyActual)) {
             return FsspWrongOrEmpyResponse.createWrongOrEmptyResponse(); // TODO переделать под вывод ошибки - так лучше для отладки.
         }
@@ -77,8 +81,10 @@ public class ApiCloudService {
     public Response getSelfEmpl(String type, String inn, String token) {
         validator.validToken(token);
         validator.validType(type, "npd");
-        int randomInt = (int) (Math.random() * 4);
+        validator.validParam(inn);
+
         // Внимание! Имитация ответа примерно в каждом 4 запросе, если достигнуто максимальное количество попыток отправить запрос в ФНС.
+        int randomInt = (int) (Math.random() * 4);
         if (randomInt == 2) {
             return new TimeMaxConErrorResponse();
         }
@@ -92,8 +98,11 @@ public class ApiCloudService {
     public Response getPassportCheck(String type, String seria, String nomer, String token) {
         validator.validToken(token);
         validator.validType(type, "chekpassport");
-        int randomInt = (int) (Math.random() * 4);
+        validator.validParam(seria);
+        validator.validParam(nomer);
+
         // Внимание! Имитация ответа примерно в каждом 4 запросе, если достигнуто максимальное количество попыток отправить запрос в ФНС.
+        int randomInt = (int) (Math.random() * 4);
         if (randomInt == 2) {
             return new TimeMaxConErrorResponse();
         }
@@ -101,7 +110,37 @@ public class ApiCloudService {
         return MvdResponse.createMvdResponse(seria, nomer);
     }
 
-    public Response getDriverIdCheck(String serianomer, String date, String token) {
-        return null;
+    public Response getDriverIdCheck(String type, String serianomer, String date, String token) {
+        validator.validToken(token);
+        validator.validType(type, "driver");
+        validator.validDate(date);
+        validator.validParam(serianomer);
+
+        // Внимание! Имитация ответа примерно в каждом 4 запросе, если достигнуто максимальное количество попыток отправить запрос в ФНС.
+        int randomInt = (int) (Math.random() * 4);
+        if (randomInt == 2) {
+            return new TimeMaxConErrorResponse();
+        }
+        if (serianomer.equals("1234567890") && date.equals("07.11.2014")) {
+            return GibddPositiveResponse.createGibddResponse();
+        }
+        return new GibddNegativeResponse();
+    }
+
+    public Response getTerExtrCheck(String type, String search, String token) {
+        validator.validToken(token);
+        validator.validType(type, "terextr");
+        validator.validParam(search);
+
+        // Внимание! Имитация ответа примерно в каждом 4 запросе, если достигнуто максимальное количество попыток отправить запрос в ФНС.
+        int randomInt = (int) (Math.random() * 4);
+        if (randomInt == 2) {
+            return new TimeMaxConErrorResponse();
+        }
+
+        if ("АБАКАРОВ ШАМИЛЬ БАГОМЕДОВИЧ*".contains(search.toUpperCase())) {
+            return RosFinMonPositiveResponse.createPositiveResponse();
+        }
+        return new RosFinMonNegativeResponse();
     }
 }

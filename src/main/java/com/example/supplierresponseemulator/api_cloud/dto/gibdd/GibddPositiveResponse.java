@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class GibddResponse extends Response {
+public class GibddPositiveResponse extends Response {
     private Doc doc;
     private List<Deprivation> decis; // Ифнормаци о лишениях
     private int status; // Статус ответа
@@ -19,9 +19,9 @@ public class GibddResponse extends Response {
     private Inquiry inquiry; // Информация о запросе
     private Cache cache; // Если вывод результата из кэша
 
-    public static Response createGibddResponse(String num, String date) {
-        return GibddResponse.builder()
-                .doc(Doc.createDoc(num, date))
+    public static Response createGibddResponse() {
+        return GibddPositiveResponse.builder()
+                .doc(Doc.createDoc())
                 .decis(List.of(Deprivation.createDeprivation()))
                 .status(200)
                 .found(true)

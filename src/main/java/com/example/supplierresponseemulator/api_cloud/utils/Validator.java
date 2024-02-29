@@ -36,6 +36,7 @@ public class Validator {
         validType(type, "inn");
         validLastnameFirstname(lastname, firstname);
         validDate(birthdate);
+        validParam(serianomer);
 
         if (lastname.isBlank() || firstname.isBlank()) {
             return false;
@@ -67,12 +68,18 @@ public class Validator {
         }
     }
 
-    public void validDate(String birthdate) {
-        if (birthdate == null) {
+    public void validParam(String param) {
+        if (param == null) {
+            throw new SupplierException("766", "MISSING_MANDATORY_PARAMETER");
+        }
+    }
+
+    public void validDate(String date) {
+        if (date == null) {
             throw new SupplierException("766", "MISSING_MANDATORY_PARAMETER"); // Могут быть сообщения с указанием какой параметр отсутствует
         }
         try {
-            LocalDate.parse(birthdate, DATE_FORMAT);
+            LocalDate.parse(date, DATE_FORMAT);
         } catch (DateTimeParseException e) {
             throw new SupplierException("015", "DATE_ERROR");
         }
