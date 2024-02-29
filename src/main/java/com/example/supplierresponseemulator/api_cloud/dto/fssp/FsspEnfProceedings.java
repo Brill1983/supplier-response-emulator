@@ -1,5 +1,6 @@
 package com.example.supplierresponseemulator.api_cloud.dto.fssp;
 
+import com.example.supplierresponseemulator.api_cloud.dto.Response;
 import lombok.*;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class FsspEnfProceedings extends FsspResponse {
+public class FsspEnfProceedings extends Response {
 
     private int status; // Статус запрос
     private String countAll; // Всего записей
@@ -20,7 +21,7 @@ public class FsspEnfProceedings extends FsspResponse {
     private int onlyActual; // Активность фильтра "Только актуальные делопроизводства"
     private List<Record> records;
 
-    public static FsspResponse createFullResponse(List<Record> records) {
+    public static Response createFullResponse(List<Record> records) {
         return FsspEnfProceedings.builder()
                 .status(200)
                 .countAll("53")

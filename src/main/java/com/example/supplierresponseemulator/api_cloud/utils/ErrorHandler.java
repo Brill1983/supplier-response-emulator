@@ -1,6 +1,6 @@
 package com.example.supplierresponseemulator.api_cloud.utils;
 
-import com.example.supplierresponseemulator.api_cloud.exceptions.BadParameterException;
+import com.example.supplierresponseemulator.api_cloud.exceptions.SupplierException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -15,12 +15,12 @@ import java.io.StringWriter;
 @RestControllerAdvice
 public class ErrorHandler {
 
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleBadParameterExc(BadParameterException e) {
-        log.info("Validation: {}", e.getMessage());
-        return new ErrorResponse(e.getMessage());
-    }
+//    @ExceptionHandler
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    public ErrorResponse handleBadParameterExc(BadParameterException e) {
+//        log.info("Validation: {}", e.getMessage());
+//        return new ErrorResponse(e.getMessage());
+//    }
 
 
     @ExceptionHandler
@@ -28,6 +28,15 @@ public class ErrorHandler {
     public ErrorResponse handleBadParameterExc(MissingServletRequestParameterException e) {
         log.info("Validation: {}", e.getMessage());
         return new ErrorResponse(e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+    public ErrorResponse handleBadParameterExc(SupplierException e) {
+        log.info("Validation: {}", e.getMessage());
+        ErrorResponse error =  new ErrorResponse(e.getError());
+        error.setMessage(e.getMessage());
+        return error;
     }
 
     @ExceptionHandler
