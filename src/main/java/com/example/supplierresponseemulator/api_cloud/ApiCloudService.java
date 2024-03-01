@@ -1,7 +1,11 @@
 package com.example.supplierresponseemulator.api_cloud;
 
+import com.example.supplierresponseemulator.api_cloud.dto.Inquiry;
 import com.example.supplierresponseemulator.api_cloud.dto.Response;
 import com.example.supplierresponseemulator.api_cloud.dto.TimeMaxConErrorResponse;
+import com.example.supplierresponseemulator.api_cloud.dto.fedres_banckrupt.BankruptNegativeResponse;
+import com.example.supplierresponseemulator.api_cloud.dto.fedres_banckrupt.BankruptPositiveResponse;
+import com.example.supplierresponseemulator.api_cloud.dto.fedres_banckrupt.Rez;
 import com.example.supplierresponseemulator.api_cloud.dto.fssp.FsspEnfProceedings;
 import com.example.supplierresponseemulator.api_cloud.dto.fssp.FsspWrongOrEmpyResponse;
 import com.example.supplierresponseemulator.api_cloud.dto.fssp.Record;
@@ -142,5 +146,29 @@ public class ApiCloudService {
             return RosFinMonPositiveResponse.createPositiveResponse();
         }
         return new RosFinMonNegativeResponse();
+    }
+
+    public Response getBankruptCheck(String type, String string, String legalStatus, String token) {
+        validator.validToken(token);
+        validator.validType(type, "searchString");
+        validator.validParam(string);
+        validator.validParam(legalStatus);
+        if (!legalStatus.equals("fiz")) {
+            throw new SupplierException("500", "MISSING_REQUIRED_TYPE_PARAMETER");
+        }
+
+        // Внимание! Имитация ответа примерно в каждом 4 запросе, если достигнуто максимальное количество попыток отправить запрос в ФНС.
+        int randomInt = (int) (Math.random() * 4);
+        if (randomInt == 2) {
+            return new TimeMaxConErrorResponse();
+        }
+
+        Rez rez = Rez.createRez();
+        if (rez.getInn().getValue().equals(string)) {
+            return new BankruptPositiveResponse(200, 1, List.of(rez),
+                    new Inquiry(0.6F, 5418.10, 1, 1));
+        }
+        return new BankruptNegativeResponse(200, 0, "Информация не найдена",
+                new Inquiry(0.6F, 5418.10, 1, 1));
     }
 }

@@ -19,7 +19,7 @@ public class PositiveResponse extends Response {
         return PositiveResponse.builder()
                 .status(200)
                 .found(true)
-                .inn("1234567890**")
+                .inn("123456789012")
                 .inquiry(new Inquiry(0.6F, 5418.10, 1, 1))
                 .build();
     }
