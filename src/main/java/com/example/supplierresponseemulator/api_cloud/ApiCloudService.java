@@ -34,7 +34,7 @@ public class ApiCloudService {
     public Response fsspEnfPrecessing(String type, String lastname, String firstname, String secondname,
                                       String birthdate, String region, String token, int searchAll, int onlyActual) {
         if (!validator.validFsspReqParams(type, lastname, firstname, birthdate, region, token, searchAll, onlyActual)) {
-            return FsspWrongOrEmpyResponse.createWrongOrEmptyResponse(); // TODO переделать под вывод ошибки - так лучше для отладки.
+            return FsspWrongOrEmpyResponse.createWrongOrEmptyResponse();
         }
 
         List<Record> recordList = Record.createRecords();

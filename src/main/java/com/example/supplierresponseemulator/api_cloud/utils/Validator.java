@@ -38,10 +38,7 @@ public class Validator {
         validDate(birthdate);
         validParam(serianomer);
 
-        if (lastname.isBlank() || firstname.isBlank()) {
-            return false;
-        }
-        return true;
+        return !lastname.isBlank() && !firstname.isBlank();
     }
 
     public void validToken(String token) {

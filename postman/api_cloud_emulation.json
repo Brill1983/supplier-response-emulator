@@ -1,0 +1,999 @@
+{
+	"info": {
+		"_postman_id": "459ac092-7c29-4d96-b275-081d6c258e85",
+		"name": "monitoring individuals",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "27706046"
+	},
+	"item": [
+		{
+			"name": "fssp",
+			"item": [
+				{
+					"name": "Запрос из базы ФССП Иванов",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/fssp.php?type=physical&lastname=Иванов&firstname=Иван&secondname=Иванович&birthdate=31.03.1995&region=-1&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"fssp.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "physical"
+								},
+								{
+									"key": "lastname",
+									"value": "Иванов"
+								},
+								{
+									"key": "firstname",
+									"value": "Иван"
+								},
+								{
+									"key": "secondname",
+									"value": "Иванович"
+								},
+								{
+									"key": "birthdate",
+									"value": "31.03.1995"
+								},
+								{
+									"key": "region",
+									"value": "-1"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Запрос из базы ФССП Петров",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/fssp.php?type=physical&lastname=Петров&firstname=Петр&birthdate=15.07.1980&region=-1&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"fssp.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "physical"
+								},
+								{
+									"key": "lastname",
+									"value": "Петров"
+								},
+								{
+									"key": "firstname",
+									"value": "Петр"
+								},
+								{
+									"key": "secondname",
+									"value": "Петрович",
+									"disabled": true
+								},
+								{
+									"key": "birthdate",
+									"value": "15.07.1980"
+								},
+								{
+									"key": "region",
+									"value": "-1"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "В базе отсутствует",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/fssp.php?type=physical&region=-1&token=53ba1b7a55abbа14aa97eff3a5220792&lastname=Сидоров&firstname=Сидор&birthdate=20.10.1991",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"fssp.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "physical"
+								},
+								{
+									"key": "secondname",
+									"value": "Петрович",
+									"disabled": true
+								},
+								{
+									"key": "region",
+									"value": "-1"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								},
+								{
+									"key": "lastname",
+									"value": "Сидоров"
+								},
+								{
+									"key": "firstname",
+									"value": "Сидор"
+								},
+								{
+									"key": "birthdate",
+									"value": "20.10.1991"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Неправильный запрос",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/fssp.php?type=physical&birthdate=15.07.1980&region=-1&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"fssp.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "physical"
+								},
+								{
+									"key": "birthdate",
+									"value": "15.07.1980"
+								},
+								{
+									"key": "region",
+									"value": "-1"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Запрос с пустым токином",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/fssp.php?type=physical&lastname=Петров&firstname=Петр&birthdate=15.07.1980&region=-1&token=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"fssp.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "physical"
+								},
+								{
+									"key": "lastname",
+									"value": "Петров"
+								},
+								{
+									"key": "firstname",
+									"value": "Петр"
+								},
+								{
+									"key": "birthdate",
+									"value": "15.07.1980"
+								},
+								{
+									"key": "region",
+									"value": "-1"
+								},
+								{
+									"key": "secondname",
+									"value": "Петрович",
+									"disabled": true
+								},
+								{
+									"key": "token",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Запрос без токина",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/fssp.php?type=physical&lastname=Петров&firstname=Петр&birthdate=15.07.1980&region=-1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"fssp.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "physical"
+								},
+								{
+									"key": "lastname",
+									"value": "Петров"
+								},
+								{
+									"key": "firstname",
+									"value": "Петр"
+								},
+								{
+									"key": "secondname",
+									"value": "Петрович",
+									"disabled": true
+								},
+								{
+									"key": "birthdate",
+									"value": "15.07.1980"
+								},
+								{
+									"key": "region",
+									"value": "-1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "inn",
+			"item": [
+				{
+					"name": "Поиск ИНН по ФИО, дате рождения и паспорту Петров",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/nalog.php?type=inn&lastname=Петров&firstname=Петр&birthdate=15.07.1980&serianomer=9876543210&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"nalog.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "inn"
+								},
+								{
+									"key": "lastname",
+									"value": "Петров"
+								},
+								{
+									"key": "firstname",
+									"value": "Петр"
+								},
+								{
+									"key": "birthdate",
+									"value": "15.07.1980"
+								},
+								{
+									"key": "serianomer",
+									"value": "9876543210"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Поиск ИНН по ФИО, дате рождения и паспорту Иванов",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/nalog.php?type=inn&lastname=Иванов&firstname=Иван&secondname=Иванович&birthdate=31.03.1995&serianomer=1234567890&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"nalog.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "inn"
+								},
+								{
+									"key": "lastname",
+									"value": "Иванов"
+								},
+								{
+									"key": "firstname",
+									"value": "Иван"
+								},
+								{
+									"key": "secondname",
+									"value": "Иванович"
+								},
+								{
+									"key": "birthdate",
+									"value": "31.03.1995"
+								},
+								{
+									"key": "serianomer",
+									"value": "1234567890"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Не найдено",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/nalog.php?type=inn&lastname=Петров&firstname=Иван&secondname=Иванович&birthdate=31.03.1995&serianomer=1234567890&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"nalog.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "inn"
+								},
+								{
+									"key": "lastname",
+									"value": "Петров"
+								},
+								{
+									"key": "firstname",
+									"value": "Иван"
+								},
+								{
+									"key": "secondname",
+									"value": "Иванович"
+								},
+								{
+									"key": "birthdate",
+									"value": "31.03.1995"
+								},
+								{
+									"key": "serianomer",
+									"value": "1234567890"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ошибка в параметре",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/nalog.php?type=inn&lastname=Иванов&firstname=Иван&birthdate=31-03-1995&serianomer=1234567890&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"nalog.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "inn"
+								},
+								{
+									"key": "lastname",
+									"value": "Иванов"
+								},
+								{
+									"key": "firstname",
+									"value": "Иван"
+								},
+								{
+									"key": "birthdate",
+									"value": "31-03-1995"
+								},
+								{
+									"key": "serianomer",
+									"value": "1234567890"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "npd",
+			"item": [
+				{
+					"name": "Является самозанятым по ИНН",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/nalog.php?type=npd&inn=123456789012&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"nalog.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "npd"
+								},
+								{
+									"key": "inn",
+									"value": "123456789012"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Не является самозанятым по ИНН Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/nalog.php?type=npd&inn=111111111111&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"nalog.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "npd"
+								},
+								{
+									"key": "inn",
+									"value": "111111111111"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ошибка Неправильный ИНН",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/nalog.php?type=npd&inn=11111111&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"nalog.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "npd"
+								},
+								{
+									"key": "inn",
+									"value": "11111111"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "mvd",
+			"item": [
+				{
+					"name": "Запрос действующего паспорта",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/mvd.php?type=chekpassport&seria=0000&nomer=000000&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"mvd.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "chekpassport"
+								},
+								{
+									"key": "seria",
+									"value": "0000"
+								},
+								{
+									"key": "nomer",
+									"value": "000000"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Запрос недействительного - смерть",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/mvd.php?type=chekpassport&seria=0000&nomer=000005&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"mvd.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "chekpassport"
+								},
+								{
+									"key": "seria",
+									"value": "0000"
+								},
+								{
+									"key": "nomer",
+									"value": "000005"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ошибка от поставщика 1 из 3 рандомно",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/mvd.php?type=chekpassport&seria=0000&nomer=000007&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"mvd.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "chekpassport"
+								},
+								{
+									"key": "seria",
+									"value": "0000"
+								},
+								{
+									"key": "nomer",
+									"value": "000007"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "gibdd",
+			"item": [
+				{
+					"name": "Корректный запрос",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/gibdd.php?type=driver&serianomer=1234567890&date=07.11.2014&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gibdd.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "driver"
+								},
+								{
+									"key": "serianomer",
+									"value": "1234567890"
+								},
+								{
+									"key": "date",
+									"value": "07.11.2014"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Не найдено",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/gibdd.php?type=driver&serianomer=3334567890&date=07.11.2014&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gibdd.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "driver"
+								},
+								{
+									"key": "serianomer",
+									"value": "3334567890"
+								},
+								{
+									"key": "date",
+									"value": "07.11.2014"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Запрос без номер ВУ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/gibdd.php?type=driver&serianomer=1234567890&date=07.11.2014&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"gibdd.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "driver"
+								},
+								{
+									"key": "serianomer",
+									"value": "1234567890"
+								},
+								{
+									"key": "date",
+									"value": "07.11.2014"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rosfinmon",
+			"item": [
+				{
+					"name": "Корректный запрос",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/fedsfm.php?type=terextr&search=Абакаров Шамиль БАГОМЕДОВИЧ&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"fedsfm.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "terextr"
+								},
+								{
+									"key": "search",
+									"value": "Абакаров Шамиль БАГОМЕДОВИЧ"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Не найдено",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/fedsfm.php?type=terextr&search=АБАКАРОВ ШАМИЛЬ БАГОМЕДОВИЧ&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"fedsfm.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "terextr"
+								},
+								{
+									"key": "search",
+									"value": "АБАКАРОВ ШАМИЛЬ БАГОМЕДОВИЧ"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "banckrupt",
+			"item": [
+				{
+					"name": "Запись найдена",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/bankrot.php?type=searchString&string=123456789012&legalStatus=fiz&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"bankrot.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "searchString"
+								},
+								{
+									"key": "string",
+									"value": "123456789012"
+								},
+								{
+									"key": "legalStatus",
+									"value": "fiz"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Запись не найдена",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/bankrot.php?type=searchString&string=123456789033&legalStatus=fiz&token=53ba1b7a55abbа14aa97eff3a5220792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"bankrot.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "searchString"
+								},
+								{
+									"key": "string",
+									"value": "123456789033"
+								},
+								{
+									"key": "legalStatus",
+									"value": "fiz"
+								},
+								{
+									"key": "token",
+									"value": "53ba1b7a55abbа14aa97eff3a5220792"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
