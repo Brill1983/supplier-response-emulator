@@ -2,6 +2,7 @@ package com.example.supplierresponseemulator.api_cloud;
 
 import com.example.supplierresponseemulator.api_cloud.dto.Inquiry;
 import com.example.supplierresponseemulator.api_cloud.dto.Response;
+import com.example.supplierresponseemulator.api_cloud.dto.SupplierException;
 import com.example.supplierresponseemulator.api_cloud.dto.TimeMaxConErrorResponse;
 import com.example.supplierresponseemulator.api_cloud.dto.fedres_banckrupt.BankruptNegativeResponse;
 import com.example.supplierresponseemulator.api_cloud.dto.fedres_banckrupt.BankruptPositiveResponse;
@@ -18,7 +19,6 @@ import com.example.supplierresponseemulator.api_cloud.dto.nalog.PositiveResponse
 import com.example.supplierresponseemulator.api_cloud.dto.nalog.SelfEmplResponse;
 import com.example.supplierresponseemulator.api_cloud.dto.rosfinmon.RosFinMonNegativeResponse;
 import com.example.supplierresponseemulator.api_cloud.dto.rosfinmon.RosFinMonPositiveResponse;
-import com.example.supplierresponseemulator.api_cloud.exceptions.SupplierException;
 import com.example.supplierresponseemulator.api_cloud.utils.Validator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,14 @@ public class ApiCloudService {
 
     public Response fsspEnfPrecessing(String type, String lastname, String firstname, String secondname,
                                       String birthdate, String region, String token, int searchAll, int onlyActual) {
-        if (!validator.validFsspReqParams(type, lastname, firstname, birthdate, region, token, searchAll, onlyActual)) {
+
+        if (validator.validToken(token) != null) return validator.validToken(token);
+        if (validator.validType(type, "physical") != null) return validator.validType(type, "physical");
+        if (validator.validParam(lastname) != null) return validator.validParam(lastname);
+        if (validator.validParam(firstname) != null) return validator.validParam(firstname);
+        if (validator.validDate(birthdate) != null) return validator.validDate(birthdate);
+
+        if (!validator.validFsspReqParams(lastname, firstname, region, searchAll, onlyActual)) {
             return FsspWrongOrEmpyResponse.createWrongOrEmptyResponse();
         }
 
@@ -53,14 +60,22 @@ public class ApiCloudService {
     }
 
     public Response getInn(String type, String firstname, String lastname, String secondname, String birthdate, String serianomer, String token) {
-        if (!validator.validInnReqParams(type, firstname, lastname, birthdate, serianomer, token)) {
+
+        if (validator.validToken(token) != null) return validator.validToken(token);
+        if (validator.validType(type, "inn") != null) return validator.validType(type, "inn");
+        if (validator.validParam(lastname) != null) return validator.validParam(lastname);
+        if (validator.validParam(firstname) != null) return validator.validParam(firstname);
+        if (validator.validDate(birthdate) != null) return validator.validDate(birthdate);
+        if (validator.validParam(serianomer) != null) return validator.validParam(serianomer);
+
+        if (lastname.isBlank() && firstname.isBlank()) {
             return new NegativeResponse();
         }
 
         // Внимание! Имитация ответа, если база ФНС недоступна, примерно в каждом 4 запросе.
         int randomInt = (int) (Math.random() * 4);
         if (randomInt == 3) {
-            throw new SupplierException("404", "Сервис ФНС временно не доступен или ведутся технические работы");
+            return new SupplierException("404", "Сервис ФНС временно не доступен или ведутся технические работы");
         }
         // Внимание! Имитация ответа примерно в каждом 4 запросе, если достигнуто максимальное количество попыток отправить запрос в ФНС.
         if (randomInt == 2) {
@@ -83,9 +98,9 @@ public class ApiCloudService {
     }
 
     public Response getSelfEmpl(String type, String inn, String token) {
-        validator.validToken(token);
-        validator.validType(type, "npd");
-        validator.validParam(inn);
+        if (validator.validToken(token) != null) return validator.validToken(token);
+        if (validator.validType(type, "npd") != null) return validator.validType(type, "npd");
+        if (validator.validParam(inn) != null) return validator.validParam(inn);
 
         // Внимание! Имитация ответа примерно в каждом 4 запросе, если достигнуто максимальное количество попыток отправить запрос в ФНС.
         int randomInt = (int) (Math.random() * 4);
@@ -100,10 +115,10 @@ public class ApiCloudService {
     }
 
     public Response getPassportCheck(String type, String seria, String nomer, String token) {
-        validator.validToken(token);
-        validator.validType(type, "chekpassport");
-        validator.validParam(seria);
-        validator.validParam(nomer);
+        if (validator.validToken(token) != null) return validator.validToken(token);
+        if (validator.validType(type, "chekpassport") != null) return validator.validType(type, "chekpassport");
+        if (validator.validParam(seria) != null) return validator.validParam(seria);
+        if (validator.validParam(nomer) != null) return validator.validParam(nomer);
 
         // Внимание! Имитация ответа примерно в каждом 4 запросе, если достигнуто максимальное количество попыток отправить запрос в ФНС.
         int randomInt = (int) (Math.random() * 4);
@@ -115,10 +130,10 @@ public class ApiCloudService {
     }
 
     public Response getDriverIdCheck(String type, String serianomer, String date, String token) {
-        validator.validToken(token);
-        validator.validType(type, "driver");
-        validator.validDate(date);
-        validator.validParam(serianomer);
+        if (validator.validToken(token) != null) return validator.validToken(token);
+        if (validator.validType(type, "driver") != null) return validator.validType(type, "driver");
+        if (validator.validDate(date) != null) return validator.validDate(date);
+        if (validator.validParam(serianomer) != null) return validator.validParam(serianomer);
 
         // Внимание! Имитация ответа примерно в каждом 4 запросе, если достигнуто максимальное количество попыток отправить запрос в ФНС.
         int randomInt = (int) (Math.random() * 4);
@@ -132,9 +147,9 @@ public class ApiCloudService {
     }
 
     public Response getTerExtrCheck(String type, String search, String token) {
-        validator.validToken(token);
-        validator.validType(type, "terextr");
-        validator.validParam(search);
+        if (validator.validToken(token) != null) return validator.validToken(token);
+        if (validator.validType(type, "terextr") != null) return validator.validType(type, "terextr");
+        if (validator.validParam(search) != null) return validator.validParam(search);
 
         // Внимание! Имитация ответа примерно в каждом 4 запросе, если достигнуто максимальное количество попыток отправить запрос в ФНС.
         int randomInt = (int) (Math.random() * 4);
@@ -149,12 +164,13 @@ public class ApiCloudService {
     }
 
     public Response getBankruptCheck(String type, String string, String legalStatus, String token) {
-        validator.validToken(token);
-        validator.validType(type, "searchString");
-        validator.validParam(string);
-        validator.validParam(legalStatus);
+        if (validator.validToken(token) != null) return validator.validToken(token);
+        if (validator.validType(type, "searchString") != null) return validator.validType(type, "searchString");
+        if (validator.validParam(string) != null) return validator.validParam(string);
+        if (validator.validParam(legalStatus) != null) return validator.validParam(legalStatus);
+
         if (!legalStatus.equals("fiz")) {
-            throw new SupplierException("500", "MISSING_REQUIRED_TYPE_PARAMETER");
+            return new SupplierException("500", "MISSING_REQUIRED_TYPE_PARAMETER");
         }
 
         // Внимание! Имитация ответа примерно в каждом 4 запросе, если достигнуто максимальное количество попыток отправить запрос в ФНС.

@@ -1,6 +1,7 @@
 package com.example.supplierresponseemulator.api_cloud.utils;
 
-import com.example.supplierresponseemulator.api_cloud.exceptions.SupplierException;
+import com.example.supplierresponseemulator.api_cloud.dto.Response;
+import com.example.supplierresponseemulator.api_cloud.dto.SupplierException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -10,12 +11,7 @@ import static com.example.supplierresponseemulator.api_cloud.utils.Constants.DAT
 
 public class Validator {
 
-    public boolean validFsspReqParams(String type, String lastname, String firstname, String birthdate, String region,
-                                      String token, int searchAll, int onlyActual) {
-        validToken(token);
-        validType(type, "physical");
-        validLastnameFirstname(lastname, firstname);
-        validDate(birthdate);
+    public boolean validFsspReqParams(String lastname, String firstname, String region, int searchAll, int onlyActual) {
 
         if (lastname.isBlank() || firstname.isBlank()) {
             return false;
@@ -30,55 +26,42 @@ public class Validator {
         return onlyActual == 0 || searchAll == 1;
     }
 
-    public boolean validInnReqParams(String type, String firstname, String lastname, String birthdate,
-                                     String serianomer, String token) {
-        validToken(token);
-        validType(type, "inn");
-        validLastnameFirstname(lastname, firstname);
-        validDate(birthdate);
-        validParam(serianomer);
-
-        return !lastname.isBlank() && !firstname.isBlank();
-    }
-
-    public void validToken(String token) {
+    public Response validToken(String token) {
         if (token == null) {
-            throw new SupplierException("502", "MISSING_REQUIRED_TOKEN_PARAMETER");
+            return new SupplierException("502", "MISSING_REQUIRED_TOKEN_PARAMETER");
         }
         if (token.length() != 32) {
-            throw new SupplierException("499", "WRONG_TOKEN_KEY");
+            return new SupplierException("499", "WRONG_TOKEN_KEY");
         }
         if (!token.equals(API_CLOUD_USER_TOKEN)) {
-            throw new SupplierException("503", "TOKEN_NOT_REGISTERED_IN_THE_SYSTEM");
+            return new SupplierException("503", "TOKEN_NOT_REGISTERED_IN_THE_SYSTEM");
         }
+        return null;
     }
 
-    public void validLastnameFirstname(String firstname, String lastname) {
-        if (lastname == null || firstname == null) {
-            throw new SupplierException("766", "MISSING_MANDATORY_PARAMETER"); // Могут быть сообщения с указанием какой параметр отсутствует
-        }
-    }
-
-    public void validType(String type, String sample) {
+    public Response validType(String type, String sample) {
         if (type == null || !type.equals(sample)) {
-            throw new SupplierException("500", "MISSING_REQUIRED_TYPE_PARAMETER");
+            return new SupplierException("500", "MISSING_REQUIRED_TYPE_PARAMETER");
         }
+        return null;
     }
 
-    public void validParam(String param) {
+    public Response validParam(String param) {
         if (param == null) {
-            throw new SupplierException("766", "MISSING_MANDATORY_PARAMETER");
+            return new SupplierException("766", "MISSING_MANDATORY_PARAMETER");
         }
+        return null;
     }
 
-    public void validDate(String date) {
+    public Response validDate(String date) {
         if (date == null) {
-            throw new SupplierException("766", "MISSING_MANDATORY_PARAMETER"); // Могут быть сообщения с указанием какой параметр отсутствует
+            return new SupplierException("766", "MISSING_MANDATORY_PARAMETER"); // Могут быть сообщения с указанием какой параметр отсутствует
         }
         try {
             LocalDate.parse(date, DATE_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new SupplierException("015", "DATE_ERROR");
+            return new SupplierException("015", "DATE_ERROR");
         }
+        return null;
     }
 }
